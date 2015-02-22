@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app="dashboard">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+  <script type="application/javascript" src="js/angular.min.js"></script>
+</head>
+<body ng-controller="MainController as main">
+
+<h2>Add New User:</h2>
+<hr/>
+Name: <input type="text" ng-model="main.userName"> <span class="error" ng-bind="main.userErrorMessage"></span>
+<br/> <br/>
+<button ng-click="main.addNewUser()">Add New User</button>
+<br/><br/><br/>
+
+<h2>Start Following:</h2>
+<hr/>
+User Name: <select ng-model="main.follower" ng-options="user.name for user in main.users"></select>
+<span class="error" ng-bind="main.errorMessages.userFollowerErrorMessage"></span> <br/> <br/>
+User Interest: <select ng-model="main.followerInterest"
+                       ng-options="interest.name for interest in main.interests"></select>
+<span class="error" ng-bind="main.errorMessages.userFollowerInterestErrorMessage"></span> <br/><br/>
+<span class="error" ng-bind="main.errorMessages.startFollowingErrorMessage"></span> <br/> <br>
+<button ng-click="main.startFollowing()">Start Follow</button>
+<br/>
+<br/><br/><br/>
+
+<h2>User and Interests</h2>
+<ul>
+  <li ng-repeat="(interestName, interestAndFollowerAndNumber) in main.interestAndFollowerAndNumbers">
+    <h4>Interest: {{interestName}}</h4>
+    <ul>
+      <li>Number: {{interestAndFollowerAndNumber.number}}</li>
+      <li>Subscribers:
+        <ul>
+          <li ng-repeat="follower in interestAndFollowerAndNumber.followers">{{follower}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2>Numbers And Subscribers</h2>
+<ul>
+  <li ng-repeat="(number, subscribers) in main.numbersAndSubscribers">
+    <h4>Number: {{number}}</h4>
+    <ul>
+      <li ng-repeat="(name, value) in subscribers">{{name}}</li>
+    </ul>
+  </li>
+</ul>
+
+<script type="application/javascript" src="js/uuid.js"></script>
+<script type="application/javascript" src="js/dashboard.classes.js"></script>
+<script type="application/javascript" src="js/user.interest.js"></script>
+<script type="application/javascript" src="js/dashboard.js"></script>
+</body>
+</html>
